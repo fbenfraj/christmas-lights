@@ -3,26 +3,17 @@ import { Lights } from "../Lights/Lights";
 import "./MainPage.scss";
 
 export const MainPage = () => {
-  const [isDisplayed, setIsDisplayed] = useState(true);
-  const [intensity, setIntensity] = useState(5);
+  const [isDisplayed, setIsDisplayed] = useState(false);
+  const [intensity, setIntensity] = useState(4);
+
   return (
     <>
       <main className="main">
-        <Lights isPlaying={isDisplayed} />
+        <section className="main-lights">
+          <h1 style={{ textAlign: "center", margin: 0 }}>Christmas Lights</h1>
+          <Lights isPlaying={isDisplayed} intensity={intensity} />
+        </section>
         <section className="main-settings">
-          <div className="main-settings-intensity">
-            <p>Intensity: {intensity}</p>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              step="1"
-              value={intensity}
-              onChange={e => {
-                setIntensity(e.target.value);
-              }}
-            />
-          </div>
           <button
             onClick={() => {
               isDisplayed ? setIsDisplayed(false) : setIsDisplayed(true);
@@ -30,6 +21,21 @@ export const MainPage = () => {
           >
             {isDisplayed ? "Turn off" : "Turn on"}
           </button>
+          {!isDisplayed && (
+            <div className="main-settings-intensity">
+              <p>Intensity: {intensity}</p>
+              <input
+                type="range"
+                min="1"
+                max="7"
+                step="1"
+                value={intensity}
+                onChange={e => {
+                  setIntensity(e.target.value);
+                }}
+              />
+            </div>
+          )}
         </section>
       </main>
     </>
